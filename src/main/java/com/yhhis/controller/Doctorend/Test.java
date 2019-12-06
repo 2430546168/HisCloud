@@ -87,6 +87,5 @@ public class Test {
                 LOGGER.debug("registeredRefund exception:{}", "-1");
                 break;
         }
-        System.out.println("12313121312123123");
     }
 }
