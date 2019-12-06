@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yhhis.dao.RegisterOrderDao">
+    <!-- pc端 订单信息 -->
+    <!-- 获取总条数 -->
+    <select id="getRegisterOrderCount" resultType="int">
+	select count(*) count from wxpayorders 
+	</select>
+    <!--pc端订单信息 分页  -->
+    <select id="getRegisterOrderPage" resultType="java.util.Map">
+        select * from wxpayorders where 1=1
+        order by id limit #{begin},#{pageSize}
+        <!-- offset #{begin} rows
+        fetch next #{pageSize} rows only -->
+    </select>
+</mapper>
+
