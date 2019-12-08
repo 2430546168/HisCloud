@@ -1,13 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" build-on-make="true" name="HisCloud:war exploded">
     <output-path>$PROJECT_DIR$/target/HisCloud-1.0.1</output-path>
-    <properties id="maven-jee-properties">
-      <options>
-        <exploded>true</exploded>
-        <module>HisCloud</module>
-        <packaging>war</packaging>
-      </options>
-    </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -57,10 +50,8 @@
           <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-wsdl:3.0.4" />
           <element id="library" level="project" name="Maven: wsdl4j:wsdl4j:1.6.3" />
           <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-databinding-jaxb:3.0.4" />
-          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.1.14" />
-          <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.12" />
-          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-core:2.1.14" />
-          <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.1" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-core:2.2.11" />
           <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-bindings-xml:3.0.4" />
           <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-frontend-simple:3.0.4" />
           <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-ws-addr:3.0.4" />
