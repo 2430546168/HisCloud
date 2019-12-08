@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yhhis.dao.DoctorFollowDao">
-    <!-- 查询医生下所有患者对自己的评价信息 -->
-    <select id="getDoctorsFans" resultType="java.util.Map">
-		select * from follow where doccode=#{doccode} LIMIT 0,#{size}
-	</select>
-</mapper>

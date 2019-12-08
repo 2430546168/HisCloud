@@ -2,7 +2,9 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/yhhis/controller/webscoket/WebSocketServer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/his/server/AddCardnoResponse.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/his/server/CacleRegsiterResponse.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/yhhis/controller/webscoket/WebsocketServer.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
