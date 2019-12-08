@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yhhis.dao.PresOrdersDao">
+    <!-- 添加处方总订单表 status 0 未付款订单状态 -->
+    <insert id="addPresOrders" parameterType="com.yhhis.common.entity.PresOrders">
+		INSERT INTO presorders ( tradeno, serialno, fee, openid, cardno, paytime,
+		status)
+		VALUES ( #{tradeno}, #{serialno}, #{fee}, #{openid}, #{cardno}, sysdate(),
+		0)
+	</insert>
+    <!--修改处方总订单状态为已收费 状态 为 1 -->
+    <update id="updateOrders" parameterType="java.lang.String">
+		update presorders set status=1 where tradeno=#{tradeno}
+	</update>
+    <delete id="deletePresOrders" parameterType="java.lang.String">
+		DELETE FROM presorders WHERE tradeno=#{tradeno} AND STATUS=0
+	</delete>
+    <!--获取订单详情根据流水号和患者卡号 -->
+    <select id="orderTradeno" parameterType="java.lang.String"
+            resultType="java.util.Map">
+		select tradeno,fee,paytime from presorders
+		where status=1 and serialno in(#{serialno}) and cardno=#{cardno}
+	</select>
+
+    <!--根据订单号获取详情 -->
+    <select id="findOrder" parameterType="java.lang.String"
+            resultType="java.util.Map">
+		select * from presorders
+		where status=1 and tradeno=#{tradeno}
+	</select>
+    <!--updateStatus -->
+    <update id="updateStatus" parameterType="java.lang.String">
+		update presorders set status=4
+		where tradeno=#{tradeno}
+	</update>
+
+
+</mapper>

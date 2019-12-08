@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yhhis.dao.EvaluateDao">
+    <!-- 评价信息添加 1默认值 代表可以查看评价的信息。0代表删除评价信息 不可见 -->
+    <insert id="insert" parameterType="com.yhhis.common.entity.Evaluate">
+    	INSERT INTO evaluate ( patientid, doccode, testno, pjdate, content, 
+						deletion, tdpj, zdpj, openid, docname,
+						hosdeptname, sex, clinicno, birthdate, idno, 
+						amorpm, cardname, name, regdate, regcode, 
+						registerfee, age, visitno, hosdocname)
+                 VALUES (#{patientid}, #{doccode}, #{testno}, #{pjdate}, #{content},
+            		      #{deletion}, #{tdpj}, #{zdpj},#{openid}, #{docname}, 
+					     #{hosdeptname}, #{sex}, #{clinicno}, #{birthdate}, #{idno}, 
+					     #{amorpm}, #{cardname}, #{name}, #{regdate}, #{regcode}, 
+						#{registerfee}, #{age}, #{visitno}, #{hosdocname})
+  	</insert>
+
+    <!--//根据openid 获取对医生的评价信息  -->
+    <select id="findEvalate" resultType="java.util.Map">
+		select  CONCAT(left(docname,1),'医师')   as docnames,e.*  from  evaluate e where patientid=#{cardno} order by num desc LIMIT 0,#{size}
+	</select>
+
+    <!-- 删除评价 信息 根据单号修改deletion 状态来改变 0为已删除 1可显示 -->
+    <update id="deleteEvalate" parameterType="java.lang.String">
+  		update evaluate set deletion='0' where patientid=#{patientid} and doccode=#{doccode} and pjdate=#{pjdate} and clinicno=#{clinicno}
+  	</update>
+</mapper>

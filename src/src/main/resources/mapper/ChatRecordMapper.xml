@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhhis.dao.ChatRecordDao">
+
+
+    <!--    添加聊天记录-->
+    <insert id="addChatRecord" parameterType="com.yhhis.common.entity.ChatRecord">
+                insert into chat_record(sender,receiver,content,chatTime,patStatus,docStatus,cpsId)
+                values (#{sender},#{receiver},#{content},#{chatTime},#{patStatus},#{docStatus},#{cpsId})
+    </insert>
+
+
+    <!--    患者修改聊天信息显示状态-->
+    <update id="putChatRecordPatStatus">
+        update chat_record set patStatus=#{patStatus}
+        <if test="patStatus==2">
+            , docStatus=2
+        </if>
+        where id=#{id} and sender=#{sender} and receiver=#{receiver}
+    </update>
+
+
+    <!--    医生修改聊天信息显示状态-->
+    <update id="putChatRecordDocStatus">
+        update chat_record set docStatus=#{docStatus}
+        <if test="docStatus==2">
+            , patStatus=2
+        </if>
+        where id=#{id} and sender=#{sender} and receiver=#{receiver}
+    </update>
+
+
+    <select id="getChatRecord" resultType="com.yhhis.common.entity.ChatRecord">
+        select * from chat_record where cpsid=#{cpsId} and patstatus=1 order by chattime
+</select>
+
+
+</mapper>

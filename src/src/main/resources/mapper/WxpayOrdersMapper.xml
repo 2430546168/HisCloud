@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yhhis.dao.WxpayOrdersDao">
+    <!--根据订单号查询当前订单的状态 以及是否已经回调 -->
+    <select id="getOneOrder" resultType="com.yhhis.common.entity.WxpayOrdersEntity"
+            parameterType="com.yhhis.common.entity.WxpayOrdersEntity">
+   select * from wxpayorders where tradeno=#{tradeno}
+   </select>
+    <!-- 根据订单号修改订单状态 为已支付-->
+    <update id="updateOrdersStatus" parameterType="com.yhhis.common.entity.WxpayOrdersEntity">
+     UPDATE wxpayorders SET status=1,visitno=#{visitno},type=#{type} WHERE tradeno=#{tradeno}
+  	</update>
+    <!-- 修改微信已经发送过回调 -->
+    <update id="updateOrdersNotifyurl" parameterType="com.yhhis.common.entity.WxpayOrdersEntity">
+     UPDATE wxpayorders SET notifyurl=1 WHERE tradeno=#{tradeno}
+  	</update>
+    <!-- 添加订单 -->
+    <insert id="insertOrders" parameterType="com.yhhis.common.entity.WxpayOrdersEntity">
+   INSERT INTO wxpayorders (tradeno, notifyurl, status) VALUES (#{tradeno}, #{notifyurl}, #{status})
+  	</insert>
+    <!-- 根据就诊序号查询订单号 -->
+    <select id="getTradenoVisitno" resultType="com.yhhis.common.entity.WxpayOrdersEntity"
+            parameterType="java.lang.String">
+   		select tradeno,visitno from wxpayorders where visitno=#{visitno} and type=#{type}
+   </select>
+
+    <select id="getAllTradeno" resultType="java.util.Map" parameterType="java.lang.String">
+        SELECT
+            visitno,tradeno
+        FROM
+            wxpayorders
+        WHERE
+            type = '微信挂号'
+        AND tradeno LIKE CONCAT(#{createTime},'%')
+        AND `status` = 1
+    </select>
+</mapper>

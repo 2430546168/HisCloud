@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yhhis.dao.IWXPayDao">
+    <resultMap id="BaseResultMap" type="com.yhhis.common.entity.WXPayOrders">
+        <result column="tradeno" property="tradeno" jdbcType="VARCHAR"/>
+        <result column="transactionid" property="transactionid"
+                jdbcType="VARCHAR"/>
+        <result column="body" property="body" jdbcType="VARCHAR"/>
+        <result column="totalfee" property="totalfee" jdbcType="INTEGER"/>
+        <result column="starttime" property="starttime" jdbcType="VARCHAR"/>
+        <result column="endtiem" property="endtiem" jdbcType="VARCHAR"/>
+        <result column="openid" property="openid" jdbcType="VARCHAR"/>
+        <result column="prepayid" property="prepayid" jdbcType="VARCHAR"/>
+        <result column="tradetype" property="tradetype" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="refundno" property="refundno" jdbcType="VARCHAR"/>
+        <result column="refunddee" property="refunddee" jdbcType="INTEGER"/>
+        <result column="cardno" property="cardno" jdbcType="VARCHAR"/>
+    </resultMap>
+    <parameterMap type="com.yhhis.common.entity.WXPayOrders"
+                  id="insertMap">
+        <parameter property="tradeno"/>
+        <parameter property="transactionid"/>
+        <parameter property="body"/>
+        <parameter property="totalfee"/>
+        <parameter property="starttime"/>
+        <parameter property="endtiem"/>
+        <parameter property="openid"/>
+        <parameter property="prepayid"/>
+        <parameter property="tradetype"/>
+        <parameter property="status"/>
+        <parameter property="refundno"/>
+        <parameter property="refunddee"/>
+        <parameter property="cardno"/>
+    </parameterMap>
+
+    <sql id="Bill_Column_List">
+		tradeno,transactionid,body,totalfee,starttime,endtiem,openid,prepayid,tradetype,status,refundno,refunddee,cardno
+	</sql>
+
+    <select id="getOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Bill_Column_List"/>
+        from wxpayorders
+        where tradeno=#{tradeno}
+    </select>
+
+    <insert id="newOrder" parameterMap="insertMap"
+            parameterType="com.yhhis.common.entity.WXPayOrders">
+        insert into wxpayorders
+        (
+        <include refid="Bill_Column_List"/>
+        )
+        values(#{tradeno},#{transactionid},#{body},#{totalfee},#{starttime},#{endtiem},#{openid},#{prepayid},
+        #{tradetype},#{status},#{refundno},#{refunddee},#{cardno})
+    </insert>
+
+    <update id="closeOrder" parameterType="java.lang.String">
+		update wxpayorders set status=-1 where tradeno=#{tradeno}
+	</update>
+
+    <update id="reFund" parameterType="java.lang.String">
+		update wxpayorders set status=4,refundno=#{refundno},refunddee=totalfee
+		where tradeno=#{tradeno}
+	</update>
+
+    <update id="confirmPay" parameterMap="insertMap"
+            parameterType="com.yhhis.common.entity.WXPayOrders">
+		update wxpayorders set
+		status=#{status},transactionid=#{transactionid},endtiem=#{endtiem}
+		where tradeno=#{tradeno}
+	</update>
+
+    <select id="getAllStration" resultType="java.util.HashMap"
+            parameterType="java.lang.String">
+		SELECT tradeno FROM wxpayorders
+		WHERE openid=#{openid}
+		AND status=0
+	</select>
+</mapper>

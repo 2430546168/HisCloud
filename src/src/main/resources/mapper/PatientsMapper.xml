@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yhhis.dao.PatientsDao">
+    <resultMap id="patientResultMap" type="com.yhhis.common.entity.Patients">
+        <result column="num" property="num" jdbcType="INTEGER"/>
+        <result column="cardno" property="cardno" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="birthdate" property="birthdate" jdbcType="VARCHAR"/>
+        <result column="idno" property="idno" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="adress" property="adress" jdbcType="VARCHAR"/>
+        <result column="openid" property="openid" jdbcType="VARCHAR"/>
+        <result column="status" property="stauts" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <parameterMap id="patientInsertMap" type="com.yhhis.common.entity.Patients">
+        <parameter property="num"/>
+        <parameter property="cardno"/>
+        <parameter property="name"/>
+        <parameter property="sex"/>
+        <parameter property="birthdate"/>
+        <parameter property="idno"/>
+        <parameter property="phone"/>
+        <parameter property="adress"/>
+        <parameter property="openid"/>
+        <parameter property="stauts"/>
+    </parameterMap>
+    <parameterMap id="patientupdateMap" type="com.yhhis.common.entity.Patients">
+        <parameter property="cardno"/>
+        <parameter property="stauts"/>
+    </parameterMap>
+
+    <sql id="Patient_Column_List">
+      cardno,name,sex,birthdate,idno,phone,adress,openid,stauts
+  </sql>
+    <!--绑卡操作-->
+    <select id="getBindPatient" resultType="java.util.Map" parameterType="java.lang.String">
+  	  select
+        *
+        from patients
+        where cardno=#{cardno} and name=#{name} and openid=#{openid}
+  </select>
+    <!--查询本地的卡的数量-->
+    <select id="getCountPatient" resultType="int" parameterType="java.lang.String">
+        SELECT COUNT(*) FROM patients WHERE openid=#{openid} and stauts=1;
+    </select>
+    <!--在本地数据库建卡操作-->
+    <insert id="newPatient" parameterMap="patientInsertMap" parameterType="com.yhhis.common.entity.Patients">
+        insert into patients
+        (<include refid="Patient_Column_List"/>)
+        values(#{cardno},#{name},#{sex},#{birthdate},#{idno},#{phone},#{adress},#{openid},#{stauts})
+    </insert>
+
+    <!--查询所有的电子卡-->
+    <select id="getAllCards" resultMap="patientResultMap" parameterType="java.lang.String">
+        select * from patients where openid=#{openid} order by stauts DESC<!-- and stauts='1' -->
+    </select>
+
+    <!--解绑电子卡-->
+    <update id="UntiedCard" parameterMap="patientupdateMap" parameterType="com.yhhis.common.entity.Patients">
+        update patients set
+        <if test="stauts==1">stauts=0</if>
+        <if test="stauts==0">stauts=1</if>
+        where cardno=#{cardno}
+    </update>
+
+    <!-- 更新openid -->
+    <update id="updateOpenid" parameterType="java.lang.String">
+        update patients set
+       		stauts=1,openid=#{openid}
+        where idno=#{idno}
+    </update>
+
+    <!--通过身份证个名字查询patients -->
+    <select id="getPatientsByIdnoAndName" resultType="java.lang.Integer">
+        select stauts from patients where idno=#{idno}
+    </select>
+
+    <!--通过opneid查询patients -->
+    <select id="getPatientsByOpenid" resultType="com.yhhis.common.entity.Patients" parameterType="java.lang.String">
+        select * from patients where openid=#{openid}
+    </select>
+
+    <!-- 获取总条数 -->
+    <select id="getPatientsCount" resultType="int">
+		select count(*) count from patients
+	</select>
+
+    <!--pc端患者信息 分页  -->
+    <select id="getPatientsPage" resultType="java.util.Map" parameterType="java.lang.Integer">
+		select * from patients where 1=1 order by num limit #{begin},#{pageSize}
+	</select>
+    <!-- 根据患者卡号获取openid -->
+    <select id="getOpenid" resultType="com.yhhis.common.entity.Patients" parameterType="java.lang.String">
+		select openid from patients where cardno=#{cardno}
+	</select>
+
+    <select id="getCardByOpenid" resultType="java.util.Map" parameterType="java.lang.String">
+	 	select * from patients where openid=#{openid} and idno=#{idno}
+	</select>
+</mapper>
