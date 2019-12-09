@@ -11,8 +11,8 @@ import java.util.Map;
  */
 public interface RegScheduleService {
     //总条数
-    public int getCount();
+    int getCount();
 
     //分页
-    public List<Map<String, Object>> getPage(@Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
+    List<Map<String, Object>> getPage(@Param("begin") Integer begin, @Param("pageSize") Integer pageSize);
 }
