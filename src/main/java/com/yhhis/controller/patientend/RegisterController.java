@@ -1,4 +1,4 @@
-package com.yhhis.controller.Patient;
+package com.yhhis.controller.patientend;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -541,7 +541,7 @@ public class RegisterController {
                     System.out.println(sdf.format(s2));
                     return (sdf2.format(s2) + "之前过来就诊");
                 } else if (!s1.before(s2) && !new Date(s1.getTime() + 900000).after(s3)) {
-                    if (now.before(new Date(s1.getTime()))) {
+                    if (now.after(new Date(s1.getTime()))) {
                         s1 = new Date(s1.getTime() + 900000);
                         return (sdf2.format(s1) + "之前过来就诊");
                     } else if (now.after(s4)) {

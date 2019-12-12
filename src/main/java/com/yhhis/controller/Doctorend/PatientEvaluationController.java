@@ -1,4 +1,4 @@
-package com.yhhis.controller.Doctor;
+package com.yhhis.controller.Doctorend;
 
 import com.yhhis.common.api.CommonResult;
 import com.yhhis.service.PatientEvaluationService;

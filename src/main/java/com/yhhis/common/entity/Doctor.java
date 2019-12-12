@@ -69,7 +69,7 @@ public class Doctor implements Serializable {
 
     @Override
     public String toString() {
-        return "Doctor [unit=" + unit + ", doccode=" + doccode + ", docname=" + docname + ", sex=" + sex + ", depcode="
+        return "Doctorend [unit=" + unit + ", doccode=" + doccode + ", docname=" + docname + ", sex=" + sex + ", depcode="
                 + depcode + ", depname=" + depname + ", specialty=" + specialty + ", photo=" + photo + ", title="
                 + title + ", openid=" + openid + ", infee=" + infee + ", intimes=" + intimes + "]";
     }

@@ -1,4 +1,4 @@
-package com.yhhis.controller.Doctor;
+package com.yhhis.controller.Doctorend;
 
 import com.his.server.PatientCheck;
 import com.his.server.WebServices;

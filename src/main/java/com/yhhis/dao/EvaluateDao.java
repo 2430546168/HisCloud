@@ -1,6 +1,6 @@
 package com.yhhis.dao;
 
-import com.yhhis.common.entity.Evaluate;
+import com.yhhis.common.entity.EvaluatePj;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface EvaluateDao {
     //添加患者对医生的评价
-    int insert(Evaluate e);
+    int insert(EvaluatePj e);
 
     //根据cardno 获取所有的评价信息
     List<Map<String, Object>> findEvalate(@Param("cardno") String cardno, @Param("size") int size);

@@ -1,4 +1,4 @@
-package com.yhhis.controller.Patient;
+package com.yhhis.controller.patientend;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,12 +87,12 @@ public class MsgController {
 ////				}else{
 ////					message.setMsgStatus(0);
 ////					if(msgfrom == 1){
-////						Doctor doctor = doctormanager.getDoctorByCode(fromid);
+////						Doctorend doctor = doctormanager.getDoctorByCode(fromid);
 ////		        		chatUrl = domain + "/getchat.do?msgid=" + msgid;
 ////		        		String msgids = WxConfig.CONREPLY_TEMPLATE_ID;
 ////		        		tem.setToUser(toid);
 ////		        		tem.setTemplateId(msgids);
-////		        		//Doctor doctor = doctormanager.getDoctorByCode(userId);
+////		        		//Doctorend doctor = doctormanager.getDoctorByCode(userId);
 ////		        		paras.add(new TemplateParam("first","","#FF3333"));
 ////		        		paras.add(new TemplateParam("keyword1",doctor.getDocname(),"#0044BB"));
 ////		        		paras.add(new TemplateParam("keyword2",msgDate,"#0044BB"));
@@ -104,7 +104,7 @@ public class MsgController {
 ////		        		wxmanager.sendTemplateMsg(tem);
 ////		        	}else if(msgfrom == 0){
 ////		        		chatUrl = domain + "/chat_doctor.jsp?msgid=" + msgid;
-////		        		Doctor doctor = doctormanager.getDoctorByCode(toid);
+////		        		Doctorend doctor = doctormanager.getDoctorByCode(toid);
 ////		        		WxUserInfo userinfo=wxmanager.getUserInfo("", fromid);
 ////		        		if(!Util.isEmpty(doctor.getOpenid())){
 ////		        			String msgids = WxConfig.CONNOTICE_TEMPLATE_ID;
@@ -130,7 +130,7 @@ public class MsgController {
 ////	        		//wxmanager.sendTextCoustomMsg(toid, "您有一条来自医生的新回复，请及时<a href='" + chatUrl + "'>查看</a>");
 ////	        	}else if(msgfrom == 0){
 ////	        		chatUrl = domain + "/chat_doctor.jsp?msgid=" + msgid;
-////	        		Doctor doctor = doctormanager.getDoctorByCode(toid);
+////	        		Doctorend doctor = doctormanager.getDoctorByCode(toid);
 ////	        		if(!Util.isEmpty(doctor.getOpenid())){
 ////	        			//wxmanager.sendTextCoustomMsg(doctor.getOpenid(), "您有一条来自患者咨询的新消息，请及时<a href='" + chatUrl + "'>查看</a>");
 ////	        		}
@@ -200,12 +200,12 @@ public class MsgController {
 //				}else{
 //					message.setMsgStatus(0);
 //					if(msgfrom == 1){
-//						Doctor doctor = doctormanager.getDoctorByCode(fromid);
+//						Doctorend doctor = doctormanager.getDoctorByCode(fromid);
 //		        		chatUrl = domain + "/getchat.do?msgid=" + msgid;
 //		        		String msgids = WxConfig.CONREPLY_TEMPLATE_ID;
 //		        		tem.setToUser(toid);
 //		        		tem.setTemplateId(msgids);
-//		        		//Doctor doctor = doctormanager.getDoctorByCode(userId);
+//		        		//Doctorend doctor = doctormanager.getDoctorByCode(userId);
 //		        		paras.add(new TemplateParam("first","","#FF3333"));
 //		        		paras.add(new TemplateParam("keyword1",doctor.getDocname(),"#0044BB"));
 //		        		paras.add(new TemplateParam("keyword2",msgDate,"#0044BB"));
@@ -218,7 +218,7 @@ public class MsgController {
 //		        		//wxmanager.sendTextCoustomMsg(toid, "您有一条来自医生的新回复，请及时<a href='" + chatUrl + "'>查看</a>");
 //		        	}else if(msgfrom == 0){
 //		        		chatUrl = domain + "/chat_doctor.jsp?msgid=" + msgid;
-//		        		Doctor doctor = doctormanager.getDoctorByCode(toid);
+//		        		Doctorend doctor = doctormanager.getDoctorByCode(toid);
 //		        		WxUserInfo userinfo=wxmanager.getUserInfo("", fromid);
 //		        		if(!Util.isEmpty(doctor.getOpenid())){
 //		        			String msgids = WxConfig.CONNOTICE_TEMPLATE_ID;
@@ -245,7 +245,7 @@ public class MsgController {
 //	        		//wxmanager.sendTextCoustomMsg(toid, "您有一条来自医生的新回复，请及时<a href='" + chatUrl + "'>查看</a>");
 //	        	}else if(msgfrom == 0){
 //	        		chatUrl = domain + "/chat_doctor.jsp?msgid=" + msgid;
-//	        		Doctor doctor = doctormanager.getDoctorByCode(toid);
+//	        		Doctorend doctor = doctormanager.getDoctorByCode(toid);
 //	        		if(!Util.isEmpty(doctor.getOpenid())){
 //	        			//wxmanager.sendTextCoustomMsg(doctor.getOpenid(), "您有一条来自患者咨询的新消息，请及时<a href='" + chatUrl + "'>查看</a>");
 //	        		}
@@ -286,7 +286,7 @@ public class MsgController {
 //		boolean tradeNoUse = false;
 //
 ////		System.out.println("firstshare:" + firstshare + ",secondshare:" + secondshare);
-//		Doctor doc = doctormanager.getDoctorByCode(doctor);
+//		Doctorend doc = doctormanager.getDoctorByCode(doctor);
 //		if(fee > 0){
 //			/**
 //			 * 如果传过来的费用>0,先验证跟设置的医生咨询费用是否一致，
@@ -564,7 +564,7 @@ public class MsgController {
 //				res.accumulate("chat", JSONObject.fromObject(map));
 //				doc = (String)map.get("doccode");
 //				if(!Util.isEmpty(doc)){
-//					Doctor doctor = doctormanager.getDoctorByCode(doc);
+//					Doctorend doctor = doctormanager.getDoctorByCode(doc);
 //					res.accumulate("openid",doctor.getOpenid());
 //				}
 //

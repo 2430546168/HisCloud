@@ -66,6 +66,8 @@ public class WXPayController {
              */
             HashMap<String, String> paysign = wxPayService.unifiedOrder(openid, body, fee, domain, ip, tradeno);
             JSONObject res = JSONObject.fromObject(paysign);
+            logger.info(res);
+            System.out.println(res);
             writer.print(res);
             writer.flush();
             writer.close();

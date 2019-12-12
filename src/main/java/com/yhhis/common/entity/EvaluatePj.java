@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author zzh
  */
-public class Evaluate implements Serializable {
+public class EvaluatePj implements Serializable {
     /**
      *
      */

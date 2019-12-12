@@ -37,7 +37,7 @@ public class Evaluates implements Serializable {
 
     @Override
     public String toString() {
-        return "Evaluate{" +
+        return "EvaluatePj{" +
                 "evalCode='" + evalCode + '\'' +
                 ", evalContext='" + evalContext + '\'' +
                 ", itemCode='" + itemCode + '\'' +

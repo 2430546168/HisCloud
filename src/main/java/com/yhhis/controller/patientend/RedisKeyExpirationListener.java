@@ -1,4 +1,4 @@
-package com.yhhis.controller.Patient;
+package com.yhhis.controller.patientend;
 
 import com.yhhis.service.impl.RedisServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

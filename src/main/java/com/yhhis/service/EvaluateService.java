@@ -1,7 +1,7 @@
 package com.yhhis.service;
 
 
-import com.yhhis.common.entity.Evaluate;
+import com.yhhis.common.entity.EvaluatePj;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface EvaluateService {
     //添加患者对医生的评价
-    public int insert(Evaluate e);
+    public int insert(EvaluatePj e);
 
     //根据openid 获取所有的评价信息
     public List<Map<String, Object>> findEvalate(String cardno, int size);

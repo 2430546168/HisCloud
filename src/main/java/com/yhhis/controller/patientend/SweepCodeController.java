@@ -1,8 +1,7 @@
-package com.yhhis.controller.Patient;
+package com.yhhis.controller.patientend;
 
 import com.alibaba.fastjson.JSON;
 import com.his.server.WebServices;
-import com.yhhis.common.api.CommonResult;
 import com.yhhis.common.util.QRCodeUtil;
 import com.yhhis.common.util.TicketSignature;
 import com.yhhis.common.util.WeiXinJsApiTicketUtil;
@@ -95,48 +94,45 @@ public class SweepCodeController {
     /**
      * 生成二维码
      *
-     * @param depCode 科室编码
-     * @param depname 科室姓名
-     * @param docName 医生姓名
-     * @param docCode 医生编码
      */
     @RequestMapping(value = "/QRCode", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult QRCode(@RequestParam("depCode") String depCode, @RequestParam("depname") String depname, @RequestParam("docName") String docName, @RequestParam("docCode") String docCode) {
-//        response.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter writer = null;
-//        String depCode = request.getParameter("depCode");//科室编码
-//        String depname = request.getParameter("depname");//科室姓名
-//        String docName = request.getParameter("docName");//医生姓名
-//        String docCode = request.getParameter("docCode");//医生编码
-        CommonResult commonResult;
-        String imgs = redisService.get("qrcode_" + docCode);
-        if (imgs == null) {
-            QRCodeUtil qrCodeUtil = new QRCodeUtil();
-            imgs = qrCodeUtil.getQRCode(depCode, depname, docName, docCode);
-            redisService.setTime("qrcode_" + docCode, imgs, 1L * 60 * 24);//将二维码放到redis里面
-            commonResult = CommonResult.success(imgs);
-            LOGGER.debug("QRCode success:{}", imgs);
-        } else {
-            commonResult = CommonResult.success(imgs);
-            LOGGER.debug("QRCode success:{}", imgs);
-        }
-        return commonResult;
-//        try {
-//            writer = response.getWriter();
-//            imgs = redisService.get("qrcode_" + docCode);
-//            if (imgs == null) {
-//                imgs = QRCodeUtil.getQRCode(depCode, depname, docName, docCode);
-//                redisService.setTime("qrcode_" + docCode, imgs, 1L * 60 * 24);//将二维码放到redis里面
-//            }
-//        } catch (IOException e) {
-//            logger.info("url:SweepCode。message:获取医生二维码异常。===请到日志中查询异常信息。===");
-//            logger.error(e.getMessage(), e);
-//        } finally {
-//            writer.print(imgs);
-//            writer.flush();
-//            writer.close();
+    public void QRCode(HttpServletRequest request, HttpServletResponse response) {
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter writer = null;
+        String depCode = request.getParameter("depCode");//科室编码
+        String depname = request.getParameter("depname");//科室姓名
+        String docName = request.getParameter("docName");//医生姓名
+        String docCode = request.getParameter("docCode");//医生编码
+//        CommonResult commonResult;
+//        String imgs = redisService.get("qrcode_" + docCode);
+//        if (imgs == null) {
+//            QRCodeUtil qrCodeUtil = new QRCodeUtil();
+//            imgs = qrCodeUtil.getQRCode(depCode, depname, docName, docCode);
+//            redisService.setTime("qrcode_" + docCode, imgs, 1L * 60 * 24);//将二维码放到redis里面
+//            commonResult = CommonResult.success(imgs);
+//            LOGGER.debug("QRCode success:{}", imgs);
+//        } else {
+//            commonResult = CommonResult.success(imgs);
+//            LOGGER.debug("QRCode success:{}", imgs);
 //        }
+//        return commonResult;
+        String imgs = redisService.get("qrcode_" + docCode);
+        try {
+            writer = response.getWriter();
+            if (imgs == null) {
+                QRCodeUtil qrCodeUtil = new QRCodeUtil();
+                imgs = qrCodeUtil.getQRCode(depCode, depname, docName, docCode);
+                redisService.setTime("qrcode_" + docCode, imgs, 1L * 60 * 24);//将二维码放到redis里面
+            }
+        } catch (IOException e) {
+            LOGGER.info("url:SweepCode。message:获取医生二维码异常。===请到日志中查询异常信息。===");
+            LOGGER.error(e.getMessage(), e);
+        } finally {
+            writer.print(imgs);
+            writer.flush();
+            writer.close();
+        }
     }
 }

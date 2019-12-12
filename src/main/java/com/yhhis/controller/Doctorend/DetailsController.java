@@ -1,4 +1,4 @@
-package com.yhhis.controller.Doctor;
+package com.yhhis.controller.Doctorend;
 
 import com.his.server.WebServices;
 import org.springframework.stereotype.Controller;

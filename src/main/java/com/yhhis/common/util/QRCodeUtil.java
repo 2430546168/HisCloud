@@ -4,6 +4,7 @@ import com.yhhis.service.impl.WxConfig;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class QRCodeUtil {
         String path = "/createQrCode";
         String method = "GET";
         String appcode = "dcd306a5f76b43fe95fda75867fce884";
+        System.out.println(wxConfig.getYuming());
         Map<String, String> headers = new HashMap<String, String>();
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", "APPCODE " + appcode);

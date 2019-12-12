@@ -1,13 +1,15 @@
-package com.yhhis.controller.Patient;
+package com.yhhis.controller.patientend;
 
 import com.alibaba.fastjson.JSON;
+import com.his.server.Evaluate;
 import com.his.server.WebServices;
-import com.yhhis.common.entity.Evaluate;
+import com.yhhis.common.entity.EvaluatePj;
 import com.yhhis.common.entity.Logger;
 import com.yhhis.common.util.ReturnCode;
 import com.yhhis.service.EvaluateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,14 +45,14 @@ public class EvaluateController {
      */
     @RequestMapping(value = "insert", method = RequestMethod.POST)
     @ResponseBody
-    public void insert(HttpServletRequest request, HttpServletResponse response, com.his.server.Evaluate entity) {
+    public void insert(HttpServletRequest request, HttpServletResponse response, @RequestBody Evaluate entity) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         Map<String, Object> map = new HashMap<String, Object>();
         PrintWriter writer = null;
         try {
             writer = response.getWriter();
-            Evaluate ev = new Evaluate();
+            EvaluatePj ev = new EvaluatePj();
             ev.setAmorpm(entity.getAmorpm());
             ev.setBirthdate(entity.getBirthdate());
             ev.setCardname(entity.getCardname());

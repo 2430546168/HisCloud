@@ -1,7 +1,7 @@
 package com.yhhis.service.impl;
 
 
-import com.yhhis.common.entity.Evaluate;
+import com.yhhis.common.entity.EvaluatePj;
 import com.yhhis.dao.EvaluateDao;
 import com.yhhis.service.EvaluateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class EvaluateServiceImpl implements EvaluateService {
      * 添加患者对医生的评价
      */
     @Override
-    public int insert(Evaluate e) {
+    public int insert(EvaluatePj e) {
         return dao.insert(e);
     }
 

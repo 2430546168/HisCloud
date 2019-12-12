@@ -1,4 +1,4 @@
-package com.yhhis.controller.Patient;
+package com.yhhis.controller.patientend;
 
 import com.his.server.WebServices;
 import com.yhhis.common.api.CommonResult;

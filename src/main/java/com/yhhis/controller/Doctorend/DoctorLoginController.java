@@ -1,4 +1,4 @@
-package com.yhhis.controller.Doctor;
+package com.yhhis.controller.Doctorend;
 
 import com.alibaba.fastjson.JSON;
 import com.his.server.WebServices;

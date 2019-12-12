@@ -1,4 +1,4 @@
-package com.yhhis.controller.Patient;
+package com.yhhis.controller.patientend;
 
 import com.alibaba.fastjson.JSON;
 import com.his.server.Patients;

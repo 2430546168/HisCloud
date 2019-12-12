@@ -49,6 +49,7 @@ public class WXPayServiceImpl implements WXPayService {
                 break;
         }
         try {
+
             WXPayConfigImpl payconfig = WXPayConfigImpl.getInstance(config.getKey(), config.getAppID(),
                     config.getMchID(), config.getCertLocalPath());
             WXPay wxpay = new WXPay(payconfig);
@@ -62,7 +63,9 @@ public class WXPayServiceImpl implements WXPayService {
             data.put("spbill_create_ip", ip);
             data.put("notify_url", domain + backurl);
             data.put("trade_type", "JSAPI");
+            System.out.println(data);
             Map<String, String> r = wxpay.unifiedOrder(data);
+            System.out.println(r);
             if (r.get("return_code").equals("SUCCESS") && r.get("result_code").equals("SUCCESS")) {
                 HashMap<String, String> paysign = new HashMap<String, String>();
                 paysign.put("appId", config.getAppID());
@@ -78,6 +81,7 @@ public class WXPayServiceImpl implements WXPayService {
                 wxpayOrders.setTradeno(tradeno);// 订单号
                 // 添加订单到本地
                 int insertOrders = wxpayOrdersService.insertOrders(wxpayOrders);
+                System.out.println(insertOrders);
                 if (insertOrders < 1) {
                     return null;
                 }
