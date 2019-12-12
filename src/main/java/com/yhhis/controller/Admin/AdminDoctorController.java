@@ -27,22 +27,23 @@ public class AdminDoctorController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminClinicController.class);
     @Resource
     WebServices webServices;
+
     @RequestMapping(value = "/getDoctorInfoList")
     public CommonResult getDoctorInfoList(HttpServletRequest result,
-                                          @RequestParam(value = "deptCode",required = false) String deptCode) {
+                                          @RequestParam(value = "deptCode", required = false) String deptCode) {
         System.out.println(deptCode);
-        if(deptCode != null && ! deptCode.equals("")){
+        if (deptCode != null && !deptCode.equals("")) {
             deptCode = deptCode + "%";
             List<DoctorInfoPO> doctorList = webServices.queryDoctorInfoByDeptCode(deptCode);
             System.out.println(doctorList);
-            if (doctorList != null){
+            if (doctorList != null) {
                 return CommonResult.success(doctorList);
             }
             return CommonResult.failed();
         }
         List<DoctorInfoPO> doctorList = webServices.queryDoctorInfoList();
         System.out.println(doctorList);
-        if (doctorList != null){
+        if (doctorList != null) {
             return CommonResult.success(doctorList);
         }
         return CommonResult.failed();
@@ -50,7 +51,7 @@ public class AdminDoctorController {
 
     @RequestMapping(value = "/loginByIdNo")
     public CommonResult loginByIdNo(HttpServletRequest result,
-                                    @RequestParam(value = "idNo",required = true) String idNo) {
+                                    @RequestParam(value = "idNo", required = true) String idNo) {
         System.out.println(idNo);
 //        if(idNo != null && ! idNo.equals("")){
 //            DoctorInfoPO doctorInfoPO = webServices.queryDoctorInfoByCardNo(idNo);
@@ -60,43 +61,43 @@ public class AdminDoctorController {
 //            return CommonResult.failed("用户不存在");
 //        }
 //        曲博和院长
-            if(idNo != null && ! idNo.equals("")){
-                if (idNo.equals("130824199007063018") || idNo.equals("13262619690702353X")){
-                    DoctorInfoPO doctorInfoPO = webServices.queryDoctorInfoByCardNo(idNo);
-                    if (doctorInfoPO != null){
-                        return CommonResult.success(doctorInfoPO);
-                    }
-                    return CommonResult.failed("用户不存在");
-                }
+        if (idNo != null && !idNo.equals("")) {
+            DoctorInfoPO doctorInfoPO = webServices.queryDoctorInfoByCardNo(idNo);
+            if (doctorInfoPO != null) {
+                return CommonResult.success(doctorInfoPO);
             }
+            return CommonResult.failed("用户不存在");
+        }
         return CommonResult.failed("身份证号为空");
     }
+
     @RequestMapping(value = "/editDoctorInfoByUserName")
     public CommonResult editDoctorInfoByUserName(HttpServletRequest result,
-                                                 @RequestParam(value = "userName",required = true) String userName,
-                                                 @RequestParam(value = "deptCode",required = true) String deptCode,
-                                                 @RequestParam(value = "expertJob",required = true) String expertJob,
-                                                 @RequestParam(value = "adminLevel",required = true) String adminLevel,
-                                                 @RequestParam(value = "deptVisible",required = true) String deptVisible,
-                                                 @RequestParam(value = "doctorRole",required = true) String doctorRole) {
+                                                 @RequestParam(value = "userName", required = true) String userName,
+                                                 @RequestParam(value = "deptCode", required = true) String deptCode,
+                                                 @RequestParam(value = "expertJob", required = true) String expertJob,
+                                                 @RequestParam(value = "adminLevel", required = true) String adminLevel,
+                                                 @RequestParam(value = "deptVisible", required = true) String deptVisible,
+                                                 @RequestParam(value = "doctorRole", required = true) String doctorRole) {
 
-        if(userName != null && ! userName.equals("")){
-            boolean editInfo = webServices.editDoctorInfoByUserName(userName,deptCode,expertJob,adminLevel,doctorRole,deptVisible);
-            if (editInfo){
+        if (userName != null && !userName.equals("")) {
+            boolean editInfo = webServices.editDoctorInfoByUserName(userName, deptCode, expertJob, adminLevel, doctorRole, deptVisible);
+            if (editInfo) {
                 return CommonResult.success("修改成功！");
             }
             return CommonResult.failed("修改失败！");
         }
         return CommonResult.failed("未传入医生信息！");
     }
+
     @RequestMapping(value = "/getAdminListByAdminLevel")
     public CommonResult getAdminListByAdminLevel(HttpServletRequest result,
-                                                 @RequestParam(value = "adminLevel",required = true) String adminLevel) {
+                                                 @RequestParam(value = "adminLevel", required = true) String adminLevel) {
         System.out.println(adminLevel);
-        if(adminLevel != null && ! adminLevel.equals("")){
-            if (Integer.parseInt(adminLevel) < 4 && Integer.parseInt(adminLevel)>=0){
+        if (adminLevel != null && !adminLevel.equals("")) {
+            if (Integer.parseInt(adminLevel) < 4 && Integer.parseInt(adminLevel) >= 0) {
                 List<DoctorInfoPO> adminList = webServices.getAdminListByAdminLevel(adminLevel);
-                if (adminList != null){
+                if (adminList != null) {
                     return CommonResult.success(adminList);
                 }
                 return CommonResult.failed("用户不存在！");
@@ -105,13 +106,23 @@ public class AdminDoctorController {
         }
         return CommonResult.failed("权限参数为空！");
     }
+
+    @RequestMapping(value = "/getAdminList")
+    public CommonResult getAdminList(HttpServletRequest result) {
+        List<DoctorInfoPO> adminList = webServices.getAdminList();
+        if (adminList != null) {
+            return CommonResult.success(adminList);
+        }
+        return CommonResult.failed("用户不存在！");
+    }
+
     @RequestMapping(value = "/editAdminLevelByUserName")
     public CommonResult editAdminLevelByUserName(HttpServletRequest result,
                                                  @RequestParam(value = "userName",required = true) String userName,
                                                  @RequestParam(value = "adminLevel",required = true) String adminLevel) {
         System.out.println(adminLevel);
         if(adminLevel != null && ! adminLevel.equals("") && userName != null && ! userName.equals("")){
-            if (Integer.parseInt(adminLevel) < 4 && Integer.parseInt(adminLevel)>=0){
+            if (Integer.parseInt(adminLevel) < 5 && Integer.parseInt(adminLevel) >= 0) {
                 boolean editInfo = webServices.editAdminLevelByUserName(userName,adminLevel);
                 if (editInfo){
                     return CommonResult.success("修改成功！");
@@ -173,12 +184,12 @@ public class AdminDoctorController {
         return CommonResult.failed("参数错误！");
     }
     @RequestMapping(value = "/getAdminLevel")
-    public CommonResult getAdminLevel(HttpServletRequest result){
+    public CommonResult getAdminLevel(HttpServletRequest result,
+                                      @RequestParam(value = "adminLevel", required = true) String adminLevel) {
 
-        List<AdminLevel> adminLevel = webServices.getAdminLevel();
-        if (adminLevel != null){
-            return CommonResult.success(adminLevel);
-
+        List<AdminLevel> adminLevelList = webServices.getAdminLevel(adminLevel);
+        if (adminLevelList != null) {
+            return CommonResult.success(adminLevelList);
         }
         return CommonResult.failed("获取失败");
     }

@@ -95,7 +95,7 @@ public class InsertCardController {
         String redis_code = redisService.get("phone_" + patients.getPhone());
         if (IDinfo != null && redis_code != code) {
             //首先查询HIS个人信息
-            String obj = webServices.getCardno(patients.getIdno(), patients.getName());
+            String obj = webServices.getCardno(patients.getIdno(), patients.getName(), patients.getPhone());
             JSONArray arry = JSONArray.fromObject(obj);
 
             newpatinent.setName(patients.getName());
