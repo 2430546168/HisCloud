@@ -184,10 +184,9 @@ public class AdminDoctorController {
         return CommonResult.failed("参数错误！");
     }
     @RequestMapping(value = "/getAdminLevel")
-    public CommonResult getAdminLevel(HttpServletRequest result,
-                                      @RequestParam(value = "adminLevel",required = true) String adminLevel){
+    public CommonResult getAdminLevel(HttpServletRequest result){
 
-        List<AdminLevel> adminLevelList = webServices.getAdminLevel(adminLevel);
+        List<AdminLevel> adminLevelList = webServices.getAdminLevel();
         if (adminLevelList != null){
             return CommonResult.success(adminLevelList);
         }

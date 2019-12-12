@@ -184,7 +184,6 @@ public interface WebServices {
 
     /**
      * 
-     * @param arg0
      * @return
      *     returns java.util.List<com.his.server.AdminLevel>
      */
@@ -192,9 +191,7 @@ public interface WebServices {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getAdminLevel", targetNamespace = "http://server.his.com/", className = "com.his.server.GetAdminLevel")
     @ResponseWrapper(localName = "getAdminLevelResponse", targetNamespace = "http://server.his.com/", className = "com.his.server.GetAdminLevelResponse")
-    public List<AdminLevel> getAdminLevel(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
+    public List<AdminLevel> getAdminLevel();
 
     /**
      * 
