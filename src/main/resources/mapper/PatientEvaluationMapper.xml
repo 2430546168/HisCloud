@@ -4,6 +4,6 @@
     <!-- 查询医生下所有患者对自己的评价信息 -->
     <select id="getEvaluationCenter" resultType="java.util.Map">
 		select * from
-		evaluate where doccode=#{doccode} ORDER BY NUM DESC LIMIT 0,#{size}
+		evaluate_pj where doccode=#{doccode} ORDER BY NUM DESC LIMIT 0,#{size}
 	</select>
 </mapper>

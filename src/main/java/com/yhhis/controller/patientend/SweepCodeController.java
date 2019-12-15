@@ -122,8 +122,7 @@ public class SweepCodeController {
         try {
             writer = response.getWriter();
             if (imgs == null) {
-                QRCodeUtil qrCodeUtil = new QRCodeUtil();
-                imgs = qrCodeUtil.getQRCode(depCode, depname, docName, docCode);
+                imgs = QRCodeUtil.getQRCode(depCode, depname, docName, docCode);
                 redisService.setTime("qrcode_" + docCode, imgs, 1L * 60 * 24);//将二维码放到redis里面
             }
         } catch (IOException e) {

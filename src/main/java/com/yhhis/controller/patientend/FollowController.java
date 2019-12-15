@@ -41,8 +41,6 @@ public class FollowController {
         Map<String, Object> map = new HashMap<String, Object>();
         PrintWriter writer = null;
         try {
-
-
             writer = response.getWriter();
             int insert = followService.insert(entity);
             if (insert > 0) {
