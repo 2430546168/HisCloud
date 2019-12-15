@@ -235,8 +235,8 @@ public class DepartController {
         response.setContentType("text/html;charset=UTF-8");
         String status = request.getParameter("status");
         //如果request里面没有cookie，就进行授权，有的话就就直接放行
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies == null) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
         // backUrl 需要遵循微信官方的定义，微信的接口只能用 https 来访问
         // 所以我这里是直接把整个项目打包成 jar 包，然后扔到自己的服务器上
         String backUrl = wxConfig.getYuming() + "/depart/callback.do";
@@ -244,9 +244,9 @@ public class DepartController {
                 + "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"
                 + "&state=" + status + "&connect_redirect=1#wechat_redirect";
         return "redirect:" + url;// 必须重定向，否则不能成功
-//        } else {
-//            return "redirect:" + ReturnCode.damion + "#/home";
-//        }
+        } else {
+            return "redirect:" + wxConfig.getYuming() + "#/home";
+        }
     }
 
     /**
