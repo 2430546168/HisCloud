@@ -1,14 +1,31 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package com.yhhis.controller.patientend;
 
 import com.alibaba.fastjson.JSON;
 import com.his.server.WebServices;
-import com.yhhis.common.util.ReturnCode;
 import com.yhhis.common.util.Util;
 import com.yhhis.common.util.WxUtils;
 import com.yhhis.service.WxUserService;
 import com.yhhis.service.impl.RedisServiceImpl;
 import com.yhhis.service.impl.WxConfig;
-import net.sf.json.JSONObject;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.json.JSONObject;
 import org.json.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,152 +37,104 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.tempurl.NWebservice;
 import org.tempurl.NWebserviceSoap;
 
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-/**
- * 编号1
- * 查询本地诊疗项目
- * 患者首页
- *
- * @author Administrator
- */
 @Controller
-@RequestMapping("/depart")
+@RequestMapping({"/depart"})
 public class DepartController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartController.class);
-
     @Autowired
     WxConfig wxConfig;
     @Autowired
     WxUserService wxUserService;
-    @Resource
-    WebServices webServices;
     @Autowired
     private RedisServiceImpl redisService;
+    @Resource
+    WebServices webServices;
 
-//    /**
-//     * 6.2 查询挂号科室  首页
-//     */
-//    @RequestMapping(value = "/GetRegDeptList", method = RequestMethod.POST)
-//    @ResponseBody
-//    public CommonResult GetRegDeptList() throws IOException {
-////        response.setCharacterEncoding("UTF-8");
-////        response.setContentType("text/html;charset=UTF-8");
-////        PrintWriter writer = null;
-////        String result = "";
-////        try {
-////            writer = response.getWriter();
-//        CommonResult commonResult;
-//        String result = redisService.get("departs");
-//        if (result == null) {
-//            NWebserviceSoap Bing = new NWebservice().getNWebserviceSoap();
-//            String str = Bing.getregdeptlist("<Request>"
-//                    + "<TypeID></TypeID>"
-//                    + "<ParDeptID>0</ParDeptID>"
-//                    + "<UserID></UserID>"
-//                    + "</Request>");
-//            //将XML转化json对象
-//            org.json.JSONObject xmlJSONObj = XML.toJSONObject(str);
-//            String jsonPrettyPrintString = xmlJSONObj.toString(4);
-//            Map<String, Object> leftDepart = leftDepart("[" + jsonPrettyPrintString + "]");
-//            result = JSON.toJSONString(leftDepart);
-//            redisService.set("departs", result);
-//            commonResult = CommonResult.success(result);
-//            LOGGER.debug("GetRegDeptList success:{}", result);
-//        } else {
-//            commonResult = CommonResult.success(result);
-//            LOGGER.debug("GetRegDeptList success:{}", result);
-//        }
-//        return commonResult;
-////        } catch (Exception e) {
-////            LOGGER.info("url:GetRegDeptList。message:查询挂号科室  首页异常。===请到日志中查询异常信息。===");
-////            LOGGER.error(e.getMessage(), e);
-////        } finally {
-////            writer.print(result);
-////            writer.flush();
-////            writer.close();
-////        }
-//    }
+    public DepartController() {
+    }
 
-
-    /**
-     * 6.2 查询挂号科室  首页
-     *
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value = "/GetRegDeptList", method = RequestMethod.POST)
+    @RequestMapping(
+            value = {"/GetRegDeptList"},
+            method = {RequestMethod.POST}
+    )
     @ResponseBody
     public void GetRegDeptList(HttpServletRequest request, HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = null;
         String result = "";
+
         try {
             writer = response.getWriter();
-            result = redisService.get("departs");
+            result = this.redisService.get("departs");
             if (result == null) {
-                NWebserviceSoap Bing = new NWebservice().getNWebserviceSoap();
-                String str = Bing.getregdeptlist("<Request>"
-                        + "<TypeID></TypeID>"
-                        + "<ParDeptID>0</ParDeptID>"
-                        + "<UserID></UserID>"
-                        + "</Request>");
-                //将XML转化json对象
-                org.json.JSONObject xmlJSONObj = XML.toJSONObject(str);
+                NWebserviceSoap Bing = (new NWebservice()).getNWebserviceSoap();
+                String str = Bing.getregdeptlist("<Request><TypeID></TypeID><ParDeptID>0</ParDeptID><UserID></UserID></Request>");
+                JSONObject xmlJSONObj = XML.toJSONObject(str);
                 String jsonPrettyPrintString = xmlJSONObj.toString(4);
-                Map<String, Object> leftDepart = leftDepart("[" + jsonPrettyPrintString + "]");
+                Map<String, Object> leftDepart = this.leftDepart("[" + jsonPrettyPrintString + "]");
                 result = JSON.toJSONString(leftDepart);
-                redisService.set("departs", result);
+                this.redisService.set("departs", result);
             }
-        } catch (Exception e) {
+        } catch (Exception var13) {
             LOGGER.info("url:GetRegDeptList。message:查询挂号科室  首页异常。===请到日志中查询异常信息。===");
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(var13.getMessage(), var13);
         } finally {
             writer.print(result);
             writer.flush();
             writer.close();
         }
+
     }
 
-    public Map<String, Object> leftDepart(String str) {
-        Map<String, Object> map = new HashMap<>();
+    public Map<String, Object> leftDepart(String str) throws JsonParseException, JsonMappingException, IOException {
+        HashMap map = new HashMap();
+
         try {
             Map<String, Object> jsonStrToArray = Util.jsonStrToArray(str);
-            Map<String, Object> mmm = new HashMap<>();
-            List<Map<String, Object>> resmap = new ArrayList<>();
-            List<Map<String, Object>> resmap1 = new ArrayList<>();
-            List<Map<String, Object>> resmap2 = new ArrayList<>();
-            List<Map<String, Object>> resmap3 = new ArrayList<>();
+            Map<String, Object> mmm = new HashMap();
+            List<Map<String, Object>> resmap = new ArrayList();
+            List<Map<String, Object>> resmap1 = new ArrayList();
+            List<Map<String, Object>> resmap2 = new ArrayList();
+            List<Map<String, Object>> resmap3 = new ArrayList();
             if (jsonStrToArray != null && jsonStrToArray.size() > 0) {
-                Map<String, Object> jsonStrToMap = (Map<String, Object>) jsonStrToArray.get("Response");//获取items json
+                Map<String, Object> jsonStrToMap = (Map)jsonStrToArray.get("Response");
                 String Items = jsonStrToMap.get("Item").toString();
                 List<HashMap> list = JSON.parseArray(Items, HashMap.class);
-                for (int i = 0; i < list.size(); i++) {
-                    String depcode = list.get(i).get("DeptID").toString();
-                    String depname = list.get(i).get("DeptName").toString();
+
+                for(int i = 0; i < list.size(); ++i) {
+                    String depcode = ((HashMap)list.get(i)).get("DeptID").toString();
+                    String depname = ((HashMap)list.get(i)).get("DeptName").toString();
                     String sub = depcode.substring(0, depcode.length() - 2);
-                    Map<String, Object> newmap = new HashMap<String, Object>();
+                    Map<String, Object> newmap = new HashMap();
                     newmap.put("depCode", depcode);
                     newmap.put("depname", depname);
-                    switch (sub) {
-                        case "100101":
+                    byte var18 = -1;
+                    switch(sub.hashCode()) {
+                        case 1448636001:
+                            if (sub.equals("100101")) {
+                                var18 = 0;
+                            }
+                            break;
+                        case 1448636002:
+                            if (sub.equals("100102")) {
+                                var18 = 1;
+                            }
+                            break;
+                        case 1448636003:
+                            if (sub.equals("100103")) {
+                                var18 = 2;
+                            }
+                    }
+
+                    switch(var18) {
+                        case 0:
                             resmap1.add(newmap);
                             break;
-                        case "100102":
+                        case 1:
                             resmap2.add(newmap);
                             break;
-                        case "100103":
+                        case 2:
                             resmap3.add(newmap);
                             break;
                         default:
@@ -173,90 +142,74 @@ public class DepartController {
                     }
                 }
             }
-            mmm.put("gynaecology", resmap1);//妇科门诊
-            mmm.put("obstetrics", resmap2);//产科门诊
-            mmm.put("pediatrics", resmap3);//儿科门诊
-            mmm.put("other", resmap);//其他
-            map.put(ReturnCode.data, mmm);
-            map.put(ReturnCode.message, "成功");
-            map.put(ReturnCode.status, "1");
-        } catch (Exception e) {
+
+            mmm.put("gynaecology", resmap1);
+            mmm.put("obstetrics", resmap2);
+            mmm.put("pediatrics", resmap3);
+            mmm.put("other", resmap);
+            map.put("data", mmm);
+            map.put("message", "成功");
+            map.put("status", "1");
+        } catch (Exception var19) {
             LOGGER.info("url:leftDepart。message:查询挂号科室  首页异常。===请到日志中查询异常信息。===");
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(var19.getMessage(), var19);
         }
+
         return map;
     }
 
-    /**
-     * 根据科室编号 查找对应医生集合 首页
-     *
-     * @param request
-     * @param response
-     * @param depCode  科室编码
-     */
-    @RequestMapping(value = "/DepartDoctors", method = RequestMethod.POST)
+    @RequestMapping(
+            value = {"/DepartDoctors"},
+            method = {RequestMethod.POST}
+    )
     @ResponseBody
     public void DepartDoctors(HttpServletRequest request, HttpServletResponse response, String depCode) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = null;
-        Map<String, Object> map = new HashMap<>();
+        HashMap map = new HashMap();
+
         try {
             writer = response.getWriter();
-            List<String> list = new ArrayList<String>();
-            String findDoctor = webServices.findDoctor(depCode);
+            List<String> list = new ArrayList();
+            String findDoctor = this.webServices.findDoctor(depCode);
             list.add(findDoctor);
             if (list != null && list.size() > 0) {
-                map.put(ReturnCode.data, list);
-                map.put(ReturnCode.message, "成功");
-                map.put(ReturnCode.status, "1");
+                map.put("data", list);
+                map.put("message", "成功");
+                map.put("status", "1");
             } else {
-                map.put(ReturnCode.data, "");
-                map.put(ReturnCode.message, "无数据！");
-                map.put(ReturnCode.status, "0");
+                map.put("data", "");
+                map.put("message", "无数据！");
+                map.put("status", "0");
             }
-        } catch (Exception e) {
+        } catch (Exception var11) {
             LOGGER.info("url:DepartDoctors。message:根据科室编号 查找对应医生集合 首页异常。===请到日志中查询异常信息。===");
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(var11.getMessage(), var11);
         } finally {
             writer.print(JSON.toJSONString(map));
             writer.flush();
             writer.close();
         }
+
     }
 
-
-    /**
-     * 微信授权登录
-     */
-    @RequestMapping("/wxLogin")
+    @RequestMapping({"/wxLogin"})
     public String wxLogin(HttpServletRequest request, HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         String status = request.getParameter("status");
-        //如果request里面没有cookie，就进行授权，有的话就就直接放行
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies == null) {
-        // backUrl 需要遵循微信官方的定义，微信的接口只能用 https 来访问
-        // 所以我这里是直接把整个项目打包成 jar 包，然后扔到自己的服务器上
-        String backUrl = wxConfig.getYuming() + "/depart/callback.do";
-        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + wxConfig.getAppID()
-                + "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code" + "&scope=snsapi_userinfo"
-                + "&state=" + status + "&connect_redirect=1#wechat_redirect";
-        return "redirect:" + url;// 必须重定向，否则不能成功
-//        } else {
-//            return "redirect:" + ReturnCode.damion + "#/home";
-//        }
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            String backUrl = "http://www.yhtcs.cn/depart/callback.do";
+            String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.wxConfig.getAppID() + "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code&scope=snsapi_userinfo&state=" + status + "&connect_redirect=1#wechat_redirect";
+            return "redirect:" + url;
+        } else {
+            return "redirect:http://www.yhtcs.cn#/home";
+        }
     }
 
-    /**
-     * 回调地址 获取用户的openid 把openid 存到session
-     *
-     * @param request
-     * @param response
-     * @throws Exception
-     */
-    @RequestMapping("/callback")
+    @RequestMapping({"/callback"})
     @ResponseBody
     public void callback(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setCharacterEncoding("UTF-8");
@@ -265,54 +218,47 @@ public class DepartController {
         String status = request.getParameter("state");
         String openid = "";
         String headimgurl = "";
-        JSONObject userInfo = new JSONObject();
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + wxConfig.getAppID() + "&secret="
-                + wxConfig.getAppSecret() + "&code=" + code + "&grant_type=authorization_code";
+        new net.sf.json.JSONObject();
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + this.wxConfig.getAppID() + "&secret=" + this.wxConfig.getAppSecret() + "&code=" + code + "&grant_type=authorization_code";
+
         try {
-            JSONObject jsonObject = WxUtils.doGetJson(url);
-            /**
-             * 获取openid和token
-             */
+            net.sf.json.JSONObject jsonObject = WxUtils.doGetJson(url);
             openid = jsonObject.getString("openid");
             String token = jsonObject.getString("access_token");
-            // 获取用户信息
-            String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + token + "&openid=" + openid
-                    + "&lang=zh_CN";
-            userInfo = WxUtils.doGetJson(infoUrl);
+            String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + token + "&openid=" + openid + "&lang=zh_CN";
+            net.sf.json.JSONObject userInfo = WxUtils.doGetJson(infoUrl);
             headimgurl = userInfo.getString("headimgurl");
-            /**
-             * 放到cookie里面
-             */
             Cookie openidcookie = new Cookie("openid", openid);
             Cookie headimgurlcookie = new Cookie("headimgurl", headimgurl);
-            openidcookie.setMaxAge(60 * 2);  // 设置生命周期为0，不能为负数
-            headimgurlcookie.setMaxAge(60 * 2);
-            openidcookie.setDomain(wxConfig.getDamion());
-            headimgurlcookie.setDomain(wxConfig.getDamion());
+            openidcookie.setMaxAge(120);
+            headimgurlcookie.setMaxAge(120);
+            openidcookie.setDomain("www.yhtcs.cn");
+            headimgurlcookie.setDomain("www.yhtcs.cn");
             openidcookie.setPath("/");
             headimgurlcookie.setPath("/");
             response.addCookie(openidcookie);
             response.addCookie(headimgurlcookie);
             if (status.equals("1")) {
-                response.sendRedirect(wxConfig.getYuming() + "?" + (int) (Math.random() * 100) + "/#/home");
+                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/home");
             } else if (status.equals("2")) {
-                response.sendRedirect(wxConfig.getYuming() + "?" + (int) (Math.random() * 100) + "/#/appointment");
+                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/appointment");
             } else if (status.equals("3")) {
-                response.sendRedirect(wxConfig.getYuming() + "?" + (int) (Math.random() * 100) + "/#/Myaccount");
+                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/Myaccount");
             } else if (status.equals("4")) {
-                response.sendRedirect(wxConfig.getYuming() + "?" + (int) (Math.random() * 100) + "/#/reportss");
+                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/reportss");
             }
-        } catch (Exception e) {
+        } catch (Exception var14) {
             LOGGER.info("url:callback。message:回调地址 获取用户的openid 把openid 存到session异常。===请到日志中查询异常信息。===");
-            LOGGER.error(e.getMessage(), e);
-            response.sendRedirect(wxConfig.getYuming() + "/#/home");
+            LOGGER.error(var14.getMessage(), var14);
+            response.sendRedirect("http://www.yhtcs.cn/#/home");
         }
+
     }
 
-    /**
-     * 查询websocket的redis的值
-     */
-    @RequestMapping(value = "/getcounts", method = RequestMethod.POST)
+    @RequestMapping(
+            value = {"/getcounts"},
+            method = {RequestMethod.POST}
+    )
     @ResponseBody
     public void getcounts(HttpServletRequest request, HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
@@ -320,44 +266,46 @@ public class DepartController {
         String cardno = request.getParameter("cardno");
         PrintWriter writer = null;
         String result = null;
+
         try {
             writer = response.getWriter();
-            result = redisService.get(cardno);
+            result = this.redisService.get(cardno);
             if (result == null) {
                 result = "0";
             }
-        } catch (Exception e) {
+        } catch (Exception var10) {
             LOGGER.info("url:getcounts。message:查询websocket的redis的值异常。===请到日志中查询异常信息。===");
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(var10.getMessage(), var10);
         } finally {
             writer.print(result);
             writer.flush();
             writer.close();
         }
 
-
     }
 
-    /**
-     * 删除websocket的redis的值
-     */
-    @RequestMapping(value = "/delcounts", method = RequestMethod.POST)
+    @RequestMapping(
+            value = {"/delcounts"},
+            method = {RequestMethod.POST}
+    )
     @ResponseBody
     public void delcounts(HttpServletRequest request, HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = null;
+
         try {
             writer = response.getWriter();
             String cardno = request.getParameter("cardno");
-            redisService.delete(cardno);
-        } catch (Exception e) {
+            this.redisService.delete(cardno);
+        } catch (Exception var8) {
             LOGGER.info("url:delcounts。message:删除websocket的redis的值异常。===请到日志中查询异常信息。===");
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(var8.getMessage(), var8);
         } finally {
             writer.print("");
             writer.flush();
             writer.close();
         }
+
     }
 }

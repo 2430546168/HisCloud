@@ -35,6 +35,7 @@ public class ObjectFactory {
     private final static QName _GetCardCount_QNAME = new QName("http://server.his.com/", "getCardCount");
     private final static QName _GetDoctorVisitStatus_QNAME = new QName("http://server.his.com/", "getDoctorVisitStatus");
     private final static QName _FindDoctor_QNAME = new QName("http://server.his.com/", "findDoctor");
+    private final static QName _GetAdminListResponse_QNAME = new QName("http://server.his.com/", "getAdminListResponse");
     private final static QName _FailureDoctorResponse_QNAME = new QName("http://server.his.com/", "failureDoctorResponse");
     private final static QName _GetDoctorClinicInfoByMonth_QNAME = new QName("http://server.his.com/", "getDoctorClinicInfoByMonth");
     private final static QName _Register_QNAME = new QName("http://server.his.com/", "register");
@@ -45,6 +46,7 @@ public class ObjectFactory {
     private final static QName _GetDeptClinicTotalByYearResponse_QNAME = new QName("http://server.his.com/", "getDeptClinicTotalByYearResponse");
     private final static QName _GetRecipeList_QNAME = new QName("http://server.his.com/", "getRecipeList");
     private final static QName _GetTreatChargeInfoResponse_QNAME = new QName("http://server.his.com/", "getTreatChargeInfoResponse");
+    private final static QName _QueryDeptListResponse_QNAME = new QName("http://server.his.com/", "queryDeptListResponse");
     private final static QName _GetDoctorLoginResponse_QNAME = new QName("http://server.his.com/", "getDoctorLoginResponse");
     private final static QName _UpdateDoctorInfo_QNAME = new QName("http://server.his.com/", "updateDoctorInfo");
     private final static QName _GetDoctorClinicTotalByMonthResponse_QNAME = new QName("http://server.his.com/", "getDoctorClinicTotalByMonthResponse");
@@ -97,6 +99,7 @@ public class ObjectFactory {
     private final static QName _GetBeforeOneDrugNoPayResponse_QNAME = new QName("http://server.his.com/", "getBeforeOneDrugNoPayResponse");
     private final static QName _EditDoctorInfoByUserName_QNAME = new QName("http://server.his.com/", "editDoctorInfoByUserName");
     private final static QName _GetValue_QNAME = new QName("http://server.his.com/", "getValue");
+    private final static QName _QueryDeptList_QNAME = new QName("http://server.his.com/", "queryDeptList");
     private final static QName _QueryDoctorInfoList_QNAME = new QName("http://server.his.com/", "queryDoctorInfoList");
     private final static QName _EditPatientReportByUserNameResponse_QNAME = new QName("http://server.his.com/", "editPatientReportByUserNameResponse");
     private final static QName _EditAdminLevelByUserName_QNAME = new QName("http://server.his.com/", "editAdminLevelByUserName");
@@ -145,6 +148,7 @@ public class ObjectFactory {
     private final static QName _GetAssayResultTakeNotes_QNAME = new QName("http://server.his.com/", "getAssayResultTakeNotes");
     private final static QName _GetMedicalLastResponse_QNAME = new QName("http://server.his.com/", "getMedicalLastResponse");
     private final static QName _GetDeptClinicInfoByDayResponse_QNAME = new QName("http://server.his.com/", "getDeptClinicInfoByDayResponse");
+    private final static QName _GetAdminList_QNAME = new QName("http://server.his.com/", "getAdminList");
     private final static QName _AddCardno_QNAME = new QName("http://server.his.com/", "addCardno");
     private final static QName _GetDoctorClinicInfoByDay_QNAME = new QName("http://server.his.com/", "getDoctorClinicInfoByDay");
     private final static QName _GetBeforeOneAssayNoPay_QNAME = new QName("http://server.his.com/", "getBeforeOneAssayNoPay");
@@ -286,6 +290,14 @@ public class ObjectFactory {
      */
     public GetTreatChargeInfoResponse createGetTreatChargeInfoResponse() {
         return new GetTreatChargeInfoResponse();
+    }
+
+    /**
+     * Create an instance of {@link QueryDeptListResponse }
+     * 
+     */
+    public QueryDeptListResponse createQueryDeptListResponse() {
+        return new QueryDeptListResponse();
     }
 
     /**
@@ -502,6 +514,14 @@ public class ObjectFactory {
      */
     public FindDoctor createFindDoctor() {
         return new FindDoctor();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminListResponse }
+     * 
+     */
+    public GetAdminListResponse createGetAdminListResponse() {
+        return new GetAdminListResponse();
     }
 
     /**
@@ -985,6 +1005,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QueryDeptList }
+     * 
+     */
+    public QueryDeptList createQueryDeptList() {
+        return new QueryDeptList();
+    }
+
+    /**
      * Create an instance of {@link QueryDoctorInfoList }
      * 
      */
@@ -1382,6 +1410,14 @@ public class ObjectFactory {
      */
     public GetAllClinicInfoByDayResponse createGetAllClinicInfoByDayResponse() {
         return new GetAllClinicInfoByDayResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminList }
+     * 
+     */
+    public GetAdminList createGetAdminList() {
+        return new GetAdminList();
     }
 
     /**
@@ -1969,6 +2005,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DeptPO }
+     * 
+     */
+    public DeptPO createDeptPO() {
+        return new DeptPO();
+    }
+
+    /**
      * Create an instance of {@link Prescription }
      * 
      */
@@ -2100,6 +2144,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAdminListResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.his.com/", name = "getAdminListResponse")
+    public JAXBElement<GetAdminListResponse> createGetAdminListResponse(GetAdminListResponse value) {
+        return new JAXBElement<GetAdminListResponse>(_GetAdminListResponse_QNAME, GetAdminListResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FailureDoctorResponse }{@code >}}
      * 
      */
@@ -2187,6 +2240,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server.his.com/", name = "getTreatChargeInfoResponse")
     public JAXBElement<GetTreatChargeInfoResponse> createGetTreatChargeInfoResponse(GetTreatChargeInfoResponse value) {
         return new JAXBElement<GetTreatChargeInfoResponse>(_GetTreatChargeInfoResponse_QNAME, GetTreatChargeInfoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link QueryDeptListResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.his.com/", name = "queryDeptListResponse")
+    public JAXBElement<QueryDeptListResponse> createQueryDeptListResponse(QueryDeptListResponse value) {
+        return new JAXBElement<QueryDeptListResponse>(_QueryDeptListResponse_QNAME, QueryDeptListResponse.class, null, value);
     }
 
     /**
@@ -2658,6 +2720,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link QueryDeptList }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.his.com/", name = "queryDeptList")
+    public JAXBElement<QueryDeptList> createQueryDeptList(QueryDeptList value) {
+        return new JAXBElement<QueryDeptList>(_QueryDeptList_QNAME, QueryDeptList.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link QueryDoctorInfoList }{@code >}}
      * 
      */
@@ -3087,6 +3158,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server.his.com/", name = "getDeptClinicInfoByDayResponse")
     public JAXBElement<GetDeptClinicInfoByDayResponse> createGetDeptClinicInfoByDayResponse(GetDeptClinicInfoByDayResponse value) {
         return new JAXBElement<GetDeptClinicInfoByDayResponse>(_GetDeptClinicInfoByDayResponse_QNAME, GetDeptClinicInfoByDayResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAdminList }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.his.com/", name = "getAdminList")
+    public JAXBElement<GetAdminList> createGetAdminList(GetAdminList value) {
+        return new JAXBElement<GetAdminList>(_GetAdminList_QNAME, GetAdminList.class, null, value);
     }
 
     /**

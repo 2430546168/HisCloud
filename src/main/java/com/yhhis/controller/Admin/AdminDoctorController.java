@@ -122,7 +122,7 @@ public class AdminDoctorController {
                                                  @RequestParam(value = "adminLevel",required = true) String adminLevel) {
         System.out.println(adminLevel);
         if(adminLevel != null && ! adminLevel.equals("") && userName != null && ! userName.equals("")){
-            if (Integer.parseInt(adminLevel) < 5 && Integer.parseInt(adminLevel) >= 0) {
+            if (Integer.parseInt(adminLevel) < 5 && Integer.parseInt(adminLevel)>=0){
                 boolean editInfo = webServices.editAdminLevelByUserName(userName,adminLevel);
                 if (editInfo){
                     return CommonResult.success("修改成功！");
@@ -184,11 +184,10 @@ public class AdminDoctorController {
         return CommonResult.failed("参数错误！");
     }
     @RequestMapping(value = "/getAdminLevel")
-    public CommonResult getAdminLevel(HttpServletRequest result,
-                                      @RequestParam(value = "adminLevel", required = true) String adminLevel) {
+    public CommonResult getAdminLevel(HttpServletRequest result){
 
-        List<AdminLevel> adminLevelList = webServices.getAdminLevel(adminLevel);
-        if (adminLevelList != null) {
+        List<AdminLevel> adminLevelList = webServices.getAdminLevel();
+        if (adminLevelList != null){
             return CommonResult.success(adminLevelList);
         }
         return CommonResult.failed("获取失败");

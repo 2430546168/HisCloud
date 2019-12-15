@@ -2,6 +2,7 @@ package com.yhhis.controller.Admin;
 
 
 import com.his.server.DeptInfoPO;
+import com.his.server.DeptPO;
 import com.his.server.WebServices;
 import com.yhhis.common.api.CommonResult;
 import org.slf4j.Logger;
@@ -29,6 +30,14 @@ public class AdminDeptController {
         List<DeptInfoPO> deptInfo = webServices.queryDeptInfoList();
         if(deptInfo != null){
             return CommonResult.success(deptInfo);
+        }
+        return CommonResult.failed();
+    }
+    @RequestMapping(value = "/getDeptList")
+    public CommonResult getDeptList(HttpServletRequest request) {
+        List<DeptPO> deptList = webServices.queryDeptList();
+        if(deptList != null){
+            return CommonResult.success(deptList);
         }
         return CommonResult.failed();
     }

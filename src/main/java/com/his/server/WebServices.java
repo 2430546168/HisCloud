@@ -243,6 +243,7 @@ public interface WebServices {
 
     /**
      * 
+     * @param arg2
      * @param arg1
      * @param arg0
      * @return
@@ -256,7 +257,9 @@ public interface WebServices {
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
-        String arg1);
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
 
     /**
      * 
@@ -339,6 +342,7 @@ public interface WebServices {
 
     /**
      * 
+     * @param arg1
      * @param arg0
      * @return
      *     returns java.lang.String
@@ -349,7 +353,20 @@ public interface WebServices {
     @ResponseWrapper(localName = "getDoctorVisitStatusResponse", targetNamespace = "http://server.his.com/", className = "com.his.server.GetDoctorVisitStatusResponse")
     public String getDoctorVisitStatus(
         @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        List<String> arg1);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.his.server.DoctorInfoPO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAdminList", targetNamespace = "http://server.his.com/", className = "com.his.server.GetAdminList")
+    @ResponseWrapper(localName = "getAdminListResponse", targetNamespace = "http://server.his.com/", className = "com.his.server.GetAdminListResponse")
+    public List<DoctorInfoPO> getAdminList();
 
     /**
      * 
@@ -1253,6 +1270,7 @@ public interface WebServices {
      * 
      * @param arg3
      * @param arg2
+     * @param arg5
      * @param arg4
      * @param arg1
      * @param arg0
@@ -1273,7 +1291,9 @@ public interface WebServices {
         @WebParam(name = "arg3", targetNamespace = "")
         String arg3,
         @WebParam(name = "arg4", targetNamespace = "")
-        String arg4);
+        String arg4,
+        @WebParam(name = "arg5", targetNamespace = "")
+        String arg5);
 
     /**
      * 
@@ -1285,6 +1305,17 @@ public interface WebServices {
     @RequestWrapper(localName = "getValue", targetNamespace = "http://server.his.com/", className = "com.his.server.GetValue")
     @ResponseWrapper(localName = "getValueResponse", targetNamespace = "http://server.his.com/", className = "com.his.server.GetValueResponse")
     public String getValue();
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.his.server.DeptPO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "queryDeptList", targetNamespace = "http://server.his.com/", className = "com.his.server.QueryDeptList")
+    @ResponseWrapper(localName = "queryDeptListResponse", targetNamespace = "http://server.his.com/", className = "com.his.server.QueryDeptListResponse")
+    public List<DeptPO> queryDeptList();
 
     /**
      * 

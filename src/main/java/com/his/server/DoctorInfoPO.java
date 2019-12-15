@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="cardNo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="deptCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="deptName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="deptVisible" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="doctorRole" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="empNo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="expertJob" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -43,6 +44,7 @@ import javax.xml.bind.annotation.XmlType;
     "cardNo",
     "deptCode",
     "deptName",
+    "deptVisible",
     "doctorRole",
     "empNo",
     "expertJob",
@@ -59,6 +61,7 @@ public class DoctorInfoPO {
     protected String cardNo;
     protected String deptCode;
     protected String deptName;
+    protected String deptVisible;
     protected String doctorRole;
     protected String empNo;
     protected String expertJob;
@@ -163,6 +166,30 @@ public class DoctorInfoPO {
      */
     public void setDeptName(String value) {
         this.deptName = value;
+    }
+
+    /**
+     * 获取deptVisible属性的值。
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDeptVisible() {
+        return deptVisible;
+    }
+
+    /**
+     * 设置deptVisible属性的值。
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDeptVisible(String value) {
+        this.deptVisible = value;
     }
 
     /**

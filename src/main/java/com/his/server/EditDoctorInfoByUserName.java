@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg4" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="arg5" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlType;
     "arg1",
     "arg2",
     "arg3",
-    "arg4"
+    "arg4",
+    "arg5"
 })
 public class EditDoctorInfoByUserName {
 
@@ -44,6 +46,7 @@ public class EditDoctorInfoByUserName {
     protected String arg2;
     protected String arg3;
     protected String arg4;
+    protected String arg5;
 
     /**
      * 获取arg0属性的值。
@@ -163,6 +166,30 @@ public class EditDoctorInfoByUserName {
      */
     public void setArg4(String value) {
         this.arg4 = value;
+    }
+
+    /**
+     * 获取arg5属性的值。
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getArg5() {
+        return arg5;
+    }
+
+    /**
+     * 设置arg5属性的值。
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setArg5(String value) {
+        this.arg5 = value;
     }
 
 }
