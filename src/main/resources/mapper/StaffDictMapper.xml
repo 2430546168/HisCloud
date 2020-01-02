@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhhis.dao.StaffDictDao">
+    <resultMap id="BaseResultMap" type="com.yhhis.common.entity.StaffDict">
+        <result column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="INPUT_CODE" property="inputCode" jdbcType="VARCHAR"/>
+        <result column="JOB" property="job" jdbcType="VARCHAR"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR"/>
+        <result column="LASTTIME" property="lastTime" jdbcType="VARCHAR"/>
+        <result column="PHONE_NO" property="phoneNo" jdbcType="VARCHAR"/>
+        <result column="CARD_NO" property="cardNo" jdbcType="VARCHAR"/>
+        <result column="EXPERT_JOB" property="expertJob" jdbcType="VARCHAR"/>
+        <result column="ONLINE_STATUS" property="onlineStatus" jdbcType="VARCHAR"/>
+        <result column="CONSULTATION_PRICE" property="consultationPrice" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getAllDoctors" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        *
+        FROM
+        hiscloud.staff_dict
+        WHERE
+        1 = 1
+        and ONLINE_STATUS=1
+        <if test="deptCode!=''">
+            and DEPT_CODE =#{deptCode}
+        </if>
+    </select>
+
+    <update id="updateOnlineStatus" parameterType="java.lang.String">
+        UPDATE staff_dict
+            SET ONLINE_STATUS = #{onlineStatus}
+            WHERE
+            USER_NAME = #{userName}
+    </update>
+</mapper>

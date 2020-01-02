@@ -63,9 +63,7 @@ public class WXPayServiceImpl implements WXPayService {
             data.put("spbill_create_ip", ip);
             data.put("notify_url", domain + backurl);
             data.put("trade_type", "JSAPI");
-            System.out.println(data);
             Map<String, String> r = wxpay.unifiedOrder(data);
-            System.out.println(r);
             if (r.get("return_code").equals("SUCCESS") && r.get("result_code").equals("SUCCESS")) {
                 HashMap<String, String> paysign = new HashMap<String, String>();
                 paysign.put("appId", config.getAppID());

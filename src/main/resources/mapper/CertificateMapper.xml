@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhhis.dao.CertificateDao">
+
+    <insert id="addImage" parameterType="java.lang.String">
+        INSERT INTO certificate(doctorNo,imageUrl) VALUES(#{doctorNo},#{imageUrl})
+    </insert>
+
+    <select id="getAll" parameterType="java.lang.String"
+            resultType="com.yhhis.common.entity.ResultObject">
+        SELECT
+            doctorNo,imageUrl
+        FROM
+            certificate
+        WHERE
+         doctorNo = #{doctorNo}
+	</select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE FROM certificate WHERE imageUrl=#{imageUrl}
+    </delete>
+
+</mapper>
