@@ -6,25 +6,14 @@
 package com.yhhis.controller.patientend;
 
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.his.server.WebServices;
 import com.yhhis.common.util.Util;
 import com.yhhis.common.util.WxUtils;
 import com.yhhis.service.WxUserService;
 import com.yhhis.service.impl.RedisServiceImpl;
 import com.yhhis.service.impl.WxConfig;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.json.JSONObject;
 import org.json.XML;
 import org.slf4j.Logger;
@@ -36,6 +25,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tempurl.NWebservice;
 import org.tempurl.NWebserviceSoap;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping({"/depart"})
@@ -98,19 +99,19 @@ public class DepartController {
             List<Map<String, Object>> resmap2 = new ArrayList();
             List<Map<String, Object>> resmap3 = new ArrayList();
             if (jsonStrToArray != null && jsonStrToArray.size() > 0) {
-                Map<String, Object> jsonStrToMap = (Map)jsonStrToArray.get("Response");
+                Map<String, Object> jsonStrToMap = (Map) jsonStrToArray.get("Response");
                 String Items = jsonStrToMap.get("Item").toString();
                 List<HashMap> list = JSON.parseArray(Items, HashMap.class);
 
-                for(int i = 0; i < list.size(); ++i) {
-                    String depcode = ((HashMap)list.get(i)).get("DeptID").toString();
-                    String depname = ((HashMap)list.get(i)).get("DeptName").toString();
+                for (int i = 0; i < list.size(); ++i) {
+                    String depcode = ((HashMap) list.get(i)).get("DeptID").toString();
+                    String depname = ((HashMap) list.get(i)).get("DeptName").toString();
                     String sub = depcode.substring(0, depcode.length() - 2);
                     Map<String, Object> newmap = new HashMap();
                     newmap.put("depCode", depcode);
                     newmap.put("depname", depname);
                     byte var18 = -1;
-                    switch(sub.hashCode()) {
+                    switch (sub.hashCode()) {
                         case 1448636001:
                             if (sub.equals("100101")) {
                                 var18 = 0;
@@ -127,7 +128,7 @@ public class DepartController {
                             }
                     }
 
-                    switch(var18) {
+                    switch (var18) {
                         case 0:
                             resmap1.add(newmap);
                             break;
@@ -199,14 +200,9 @@ public class DepartController {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         String status = request.getParameter("status");
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            String backUrl = "http://www.yhtcs.cn/depart/callback.do";
-            String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.wxConfig.getAppID() + "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code&scope=snsapi_userinfo&state=" + status + "&connect_redirect=1#wechat_redirect";
-            return "redirect:" + url;
-        } else {
-            return "redirect:http://www.yhtcs.cn#/home";
-        }
+        String backUrl = "http://www.yhtcs.cn:8089/depart/callback.do";
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + this.wxConfig.getAppID() + "&redirect_uri=" + URLEncoder.encode(backUrl) + "&response_type=code&scope=snsapi_userinfo&state=" + status + "&connect_redirect=1#wechat_redirect";
+        return "redirect:" + url;
     }
 
     @RequestMapping({"/callback"})
@@ -232,25 +228,25 @@ public class DepartController {
             Cookie headimgurlcookie = new Cookie("headimgurl", headimgurl);
             openidcookie.setMaxAge(120);
             headimgurlcookie.setMaxAge(120);
-            openidcookie.setDomain("www.yhtcs.cn");
-            headimgurlcookie.setDomain("www.yhtcs.cn");
+            openidcookie.setDomain("www.yhtcs.cn:8089");
+            headimgurlcookie.setDomain("www.yhtcs.cn:8089");
             openidcookie.setPath("/");
             headimgurlcookie.setPath("/");
             response.addCookie(openidcookie);
             response.addCookie(headimgurlcookie);
             if (status.equals("1")) {
-                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/home");
+                response.sendRedirect("http://www.yhtcs.cn:8089?" + (int) (Math.random() * 100.0D) + "#/home");
             } else if (status.equals("2")) {
-                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/appointment");
+                response.sendRedirect("http://www.yhtcs.cn:8089?" + (int) (Math.random() * 100.0D) + "#/appointment");
             } else if (status.equals("3")) {
-                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/Myaccount");
+                response.sendRedirect("http://www.yhtcs.cn:8089?" + (int) (Math.random() * 100.0D) + "#/Myaccount");
             } else if (status.equals("4")) {
-                response.sendRedirect("http://www.yhtcs.cn?" + (int)(Math.random() * 100.0D) + "/#/reportss");
+                response.sendRedirect("http://www.yhtcs.cn:8089?" + (int) (Math.random() * 100.0D) + "#/reportss");
             }
         } catch (Exception var14) {
             LOGGER.info("url:callback。message:回调地址 获取用户的openid 把openid 存到session异常。===请到日志中查询异常信息。===");
             LOGGER.error(var14.getMessage(), var14);
-            response.sendRedirect("http://www.yhtcs.cn/#/home");
+            response.sendRedirect("http://www.yhtcs.cn:8089#/home");
         }
 
     }

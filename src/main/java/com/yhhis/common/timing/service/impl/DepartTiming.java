@@ -78,4 +78,21 @@ public class DepartTiming {
                 LOGGER.debug("registeredRefund exception:{}", "");
         }
     }
+
+    /**
+     * 定时修改上下午出诊状态
+     */
+    public void Modifystatus() {
+        String result = webServices.getDocotrWhetherVisitStatusOfSysdateAll();
+        org.json.JSONArray param = new org.json.JSONArray(result);
+        String[] StringArray = new String[param.length()];
+        for (int i = 0; i < param.length(); i++) {
+            StringArray[i] = param.get(i).toString();
+            String noon = redisServiceImpl.get(StringArray[i]);
+            if (noon != null) {
+                webServices.updateDoctorVisitStatus(StringArray[i], "1", noon);
+                redisServiceImpl.delete(StringArray[i]);
+            }
+        }
+    }
 }

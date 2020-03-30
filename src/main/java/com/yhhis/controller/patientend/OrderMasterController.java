@@ -226,7 +226,7 @@ public class OrderMasterController {
         String result = "";
         try {
             // 支付成功后 redis 存储订单号和支付价格
-            redisServiceImpl.set(tradeno, fee);
+            redisServiceImpl.setTime(tradeno, fee, 1440L);
             writer = response.getWriter();
             String prescription = request.getParameter("prescriptions");
             List<HashMap> jsonStrToArray = JSON.parseArray(prescription, HashMap.class);

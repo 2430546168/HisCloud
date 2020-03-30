@@ -32,7 +32,7 @@
 
     <select id="getChatRecord" resultType="com.yhhis.common.entity.ChatRecord">
         select * from chat_record where cpsid=#{cpsId} and patstatus=1 order by chattime
-</select>
+    </select>
 
 
 </mapper>

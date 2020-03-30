@@ -14,7 +14,8 @@
 	   http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- 引入属性文件 -->
     <context:annotation-config/>
-    <context:property-placeholder ignore-unresolvable="true" location="classpath:wx.properties" file-encoding="UTF-8"/>
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:wxconfig.properties"
+                                  file-encoding="UTF-8"/>
     <task:annotation-driven/>
 
     <jaxws:client id="webServices" address="http://192.168.1.195:8090/Web/Web/services/webservice?wsdl"

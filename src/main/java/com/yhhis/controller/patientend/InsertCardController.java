@@ -63,23 +63,24 @@ public class InsertCardController {
         model.setQueryParams(queryMap);
         WxApiCall call = new WxApiCall();
         call.setModel(model);
-        if (s == null) {
-            redisService.setTime(openid, (++i) + "", 60L);
-            message = call.request();
-        } else {
-            int s1 = Integer.parseInt(redisService.get(openid));
-            if (s1 <= 3) {
-                redisService.setTime(openid, (++i) + "", 60L);
-                message = call.request();
-            } else {
-                System.out.println("------------------频繁操作，请一个小时之后进行操作-------------");
-                message = "频繁操作，请一个小时之后进行操作";
-                i = 1;
-                commonResult = CommonResult.failed(message);
-                LOGGER.debug("Verified fail:{}", message);
-                return JSON.toJSONString(commonResult);
-            }
-        }
+        message = call.request();
+//        if (s == null) {
+//            redisService.setTime(openid, (++i) + "", 5L);
+//            message = call.request();
+//        } else {
+//            int s1 = Integer.parseInt(redisService.get(openid));
+//            if (s1 <= 3) {
+//                redisService.setTime(openid, (++i) + "", 5L);
+//                message = call.request();
+//            } else {
+//                System.out.println("------------------频繁操作，请五分钟之后进行操作-------------");
+//                message = "频繁操作，请五分钟之后进行操作";
+//                i = 1;
+//                commonResult = CommonResult.failed(message);
+//                LOGGER.debug("Verified fail:{}", message);
+//                return JSON.toJSONString(commonResult);
+//            }
+//        }
         return message;
     }
 

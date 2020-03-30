@@ -173,6 +173,7 @@ public class DownloadFileFromWX {
                 }
             }
         }
+        fileName = "images/" + fileName;
         return fileName;
     }
 

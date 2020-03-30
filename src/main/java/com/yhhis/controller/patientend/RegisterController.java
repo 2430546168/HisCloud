@@ -358,8 +358,8 @@ public class RegisterController {
      */
     @RequestMapping(value = "/getRegisterInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String getRegisterInfo(@RequestParam("patientId") String patientId, @RequestParam("time") String time) {
-        String result = webServices.findRegisterOrders(patientId, time);
+    public String getRegisterInfo(@RequestParam("patientId") String patientId, @RequestParam("time") String time, @RequestParam("size") int size) {
+        String result = webServices.findRegisterOrders(patientId, time, size);
         return result;
     }
 
@@ -502,6 +502,8 @@ public class RegisterController {
     }
 
 
+    @RequestMapping(value = "/getTime", method = RequestMethod.POST)
+    @ResponseBody
     public String getTime(String doctorno, String time) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -542,7 +544,7 @@ public class RegisterController {
                     return (sdf2.format(s2) + "之前过来就诊");
                 } else if (!s1.before(s2) && !new Date(s1.getTime() + 900000).after(s3)) {
                     if (now.after(new Date(s1.getTime()))) {
-                        s1 = new Date(s1.getTime() + 900000);
+                        s1 = new Date(now.getTime() + 900000);
                         return (sdf2.format(s1) + "之前过来就诊");
                     } else if (now.after(s4)) {
                         s1 = new Date(now.getTime() + 900000);

@@ -42,14 +42,26 @@
         <!-- 指定任务执行的方法 -->
         <property name="targetMethod" value="refund"/>
     </bean>
+    <bean id="departtimingJobDetailExecute2"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 指定任务类 -->
+        <property name="targetObject" ref="departTiming"/>
+        <!-- 指定任务执行的方法 -->
+        <property name="targetMethod" value="Modifystatus"/>
+    </bean>
 
     <bean id="departtimingExecuteTrigger"
           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="departtimingJobDetailExecute"/>
-        <!-- 每晚上12点运行一次   0 0 0 * * ? -->
+        <!-- 每下午17点运行一次   0 0 0 * * ? -->
         <property name="cronExpression" value="0 0 17 * * ?"/>
     </bean>
-
+    <bean id="departtimingExecuteTrigger2"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="departtimingJobDetailExecute2"/>
+        <!-- 每中午12点运行一次   0 0 0 * * ? -->
+        <property name="cronExpression" value="0 0 12 * * ?"/>
+    </bean>
     <!--&lt;!&ndash; 定时end &ndash;&gt;-->
     <!--&lt;!&ndash; 定时删除未支付订单开始 (暂时没用-可根据逻辑去方法里写)&ndash;&gt;-->
     <!--<bean id="departtimingJobDetailExecute2"-->
@@ -71,7 +83,7 @@
         <property name="triggers">
             <list>
                 <ref bean="departtimingExecuteTrigger"/>
-                <!--<ref bean="departtimingExecuteTrigger2"/>-->
+                <ref bean="departtimingExecuteTrigger2"/>
             </list>
         </property>
         <property name="startupDelay" value="5"/>

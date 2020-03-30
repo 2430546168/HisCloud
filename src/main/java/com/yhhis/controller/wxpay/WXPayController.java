@@ -61,9 +61,11 @@ public class WXPayController {
             String requestUri = request.getRequestURI();
             String domain = requestUrl.replace(requestUri, "");
             String ip = Util.getIpAddr(request);
+
             /**
              * 统一下单的方法 支付
              */
+            System.out.println(openid + "-----" + body + "---------" + fee + "---------" + domain + "---------" + ip + "---------" + tradeno);
             HashMap<String, String> paysign = wxPayService.unifiedOrder(openid, body, fee, domain, ip, tradeno);
             JSONObject res = JSONObject.fromObject(paysign);
             logger.info(res);

@@ -2,6 +2,8 @@ package com.yhhis.controller.Doctorend;
 
 import com.his.server.WebServices;
 import com.yhhis.common.entity.Logger;
+import com.yhhis.service.impl.RedisServiceImpl;
+import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,8 @@ public class DoctorPayAHomeVisit {
     protected Logger logger = Logger.getLogger(this.getClass());
     @Resource
     WebServices webServices;
+    @Resource
+    RedisServiceImpl redisService;
 
     /**
      *  医生出诊
@@ -65,7 +69,7 @@ public class DoctorPayAHomeVisit {
      */
     @RequestMapping(value = "/NoVisit", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public String NoVisit(@RequestParam("cliniclabel") String cliniclabel, @RequestParam("code") String code) {
+    public String NoVisit(@RequestParam("cliniclabel") String cliniclabel, @RequestParam("code") String code, @RequestParam("noon") String noon) {
 //		response.setCharacterEncoding("UTF-8");
 //		response.setContentType("text/html;charset=UTF-8");
 //		String cliniclabel = request.getParameter("cliniclabel");// 号源名称
@@ -74,7 +78,11 @@ public class DoctorPayAHomeVisit {
 //		String result = "";
 //		try {
 //			writer = response.getWriter();
-        String result = webServices.updateDoctorVisitStatus(cliniclabel, code);
+        redisService.delete(cliniclabel);
+        String result = webServices.updateDoctorVisitStatus(cliniclabel, code, noon);
+        if ("1".equals(noon)) {
+            redisService.set(cliniclabel, "2");
+        }
 //		} catch (Exception e) {
 //			logger.info("doctornopayahomevisit。message:医生未出诊异常。===请到日志中查询异常信息。===");
 //			logger.error(e.getMessage(), e);
