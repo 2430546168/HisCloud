@@ -30,7 +30,7 @@
         <shiro.version>1.2.3</shiro.version>
         <!--cxf版本号-->
         <cxf.version>3.0.4</cxf.version>
-        <spring.version>4.2.5.RELEASE</spring.version><!-- 4.2.5.RELEASE -->
+        <spring.version>5.3.18</spring.version><!-- 4.2.5.RELEASE -->
     </properties>
     <dependencies>
         <!--java ee-->
